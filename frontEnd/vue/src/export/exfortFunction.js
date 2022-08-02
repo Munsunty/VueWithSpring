@@ -1,8 +1,8 @@
 import axi from "axios";
 const axios = axi.create({
-    baseURL:"http://localhost:8082/",
+    baseURL:"http://localhost:8080/",
     headers:{
-        ["Access-Control-Allow-Origin"]:"http://localhost:8082"
+        ["Access-Control-Allow-Origin"]:"http://localhost:8080"
     }
 });
 const axiosEx = axi.create({
@@ -31,7 +31,6 @@ export function getDataByAxios(URL,params,success,n){
         }else{
             axios.get(URL,
                 {
-                    // header:("", "http://localhost:8082"),
                     params:params})
                 .then(function (response){
                     return success(response);
