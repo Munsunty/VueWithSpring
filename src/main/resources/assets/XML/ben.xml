@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ben>
+    <person>
+        <name>아브라함</name>
+        <type>믿음의 조상</type>
+        <version>0</version>
+        <father>null</father>
+    </person>
+    <person>
+        <name>이삭</name>
+        <type>약속의 아들</type>
+        <version>0</version>
+        <father>아브라함-믿음의 조상-0</father>
+    </person>
+    <person>
+        <name>야곱</name>
+        <type>12지파의 아버지</type>
+        <version>0</version>
+        <father>이삭-약속의 아들-0</father>
+    </person>
+    <person>
+        <name>르우벤</name>
+        <type>남쪽</type>
+        <version>0</version>
+        <father>야곱-12지파의 아버지-0</father>
+    </person>
+    <person>
+        <name>시므온</name>
+        <type>남쪽</type>
+        <version>0</version>
+        <father>야곱-12지파의 아버지-0</father>
+    </person>
+    <person>
+        <name>레위</name>
+        <type>중앙</type>
+        <version>0</version>
+        <father>야곱-12지파의 아버지-0</father>
+    </person>
+    <person>
+        <name>유다</name>
+        <type>동쪽</type>
+        <version>0</version>
+    </person>
+    <person>
+        <name>단</name>
+        <type>북쪽</type>
+        <version>3</version>
+    </person>
+    <person>
+        <name>납달리</name>
+        <type>북쪽</type>
+        <version>3</version>
+    </person>
+    <person>
+        <name>갓</name>
+        <type>남쪽</type>
+        <version>2</version>
+    </person>
+    <person>
+        <name>아셀</name>
+        <type>북쪽</type>
+        <version>2</version>
+    </person>
+    <person>
+        <name>잇사갈</name>
+        <type>남쪽</type>
+        <version>0</version>
+    </person>
+    <person>
+        <name>스블론</name>
+        <type>남쪽</type>
+        <version>0</version>
+    </person>
+    <person>
+        <name>에브라임</name>
+        <type>서쪽</type>
+        <version>1</version>
+    </person>
+    <person>
+        <name>므낫세</name>
+        <type>서쪽</type>
+        <version>1</version>
+    </person>
+    <person>
+        <name>베냐민</name>
+        <type>남쪽</type>
+        <version>1</version>
+    </person>
+</Ben>

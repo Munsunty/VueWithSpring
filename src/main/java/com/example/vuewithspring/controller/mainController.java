@@ -1,6 +1,7 @@
 package com.example.vuewithspring.controller;
 
 
+import com.example.vuewithspring.work.doI;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +13,8 @@ public class mainController {
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
     public  String searchGet(){
-        return "hello";
+        doI i = new doI();
+        return i.getJsonData();
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
