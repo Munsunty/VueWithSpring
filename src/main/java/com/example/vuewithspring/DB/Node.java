@@ -7,8 +7,12 @@ import java.util.HashMap;
 public class Node {
     Node parentNode;
     Node rootNode;
-    boolean isRoot;
-    boolean isLeaf;
+    boolean isRoot = false;
+    boolean isLeaf = false;
+
+    int level;
+
+    int width=0;
 
     HashMap<String, Node> children=new HashMap<String, Node>();
     HashMap<String,info> infoKeyMap = new HashMap();
@@ -18,6 +22,10 @@ public class Node {
     }
     public Node(HashMap<String, info> infoKeyMap) {
         this.infoKeyMap = infoKeyMap;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void setNode(String key, info nf){
@@ -32,9 +40,14 @@ public class Node {
     public String getJson(){
         StringBuffer sb = new StringBuffer();
         for(String key : this.infoKeyMap.keySet()){
-            sb.append("{\"data:\":").append("{");
+            sb.append("{\"group\":").append("\"nodes\",");
+            sb.append("\"data\":").append("{");
             sb.append("\"id\":");
             sb.append("\"").append(key).append("\",");
+            sb.append("\"level\":");
+            sb.append(this.level).append(",");
+            sb.append("\"width\":");
+            sb.append(this.width).append(",");
             info data = this.infoKeyMap.get(key);
             JSONObject dataObject = new JSONObject(data.infoMap);
             sb.append("\"info\":");
@@ -45,7 +58,8 @@ public class Node {
             for(String key : children.keySet()){
                 Node node = children.get(key);
                 for(String pKey:this.infoKeyMap.keySet()){
-                    sb.append("{\"data:\":").append("{");
+                    sb.append("{\"group\":").append("\"edges\",");
+                    sb.append("\"data\":").append("{");
                     sb.append("\"id\":");
                     sb.append("\"").append(pKey+"--"+key).append("\",");
                     sb.append("\"source\":");

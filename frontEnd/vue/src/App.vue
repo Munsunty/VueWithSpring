@@ -1,4 +1,6 @@
 <template>
+  <form-box v-if="checked"></form-box>
+  <input id="statusSwitch" type="checkbox"  v-model="checked" style="display: none"/>
   <topBar></topBar>
   <leftBar></leftBar>
   <container></container>
@@ -8,15 +10,21 @@
 import topBar from './components/topBar.vue'
 import leftBar from './components/leftBar.vue'
 import container from './components/container/diagramContainer.vue'
-
+import formBox from './components/container/formContainer.vue'
 
 
 export default {
   name: 'App',
+  data(){
+    return{
+      checked:false
+    }
+  },
   components: {
     topBar,
     leftBar,
-    container
+    container,
+    formBox
   }
 }
 
@@ -41,6 +49,15 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+}
+#registration{
+  border: solid 1px lightgray;
+  top: 10%;
+  position: absolute;
+  right: 3%;
+  padding: 10px 10px 10px 10px;
+  max-width: 400px;
+  z-index: 100;
 }
 
 </style>

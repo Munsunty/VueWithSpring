@@ -6,6 +6,8 @@
 <script>
 import { defineComponent, nextTick, onMounted, ref } from 'vue'
 import cytoscape from 'cytoscape';
+import {setCy,data,cy} from '@/export/exfortVar'
+
 
 export default defineComponent({
   name: 'diagramContainer',
@@ -32,46 +34,38 @@ export default defineComponent({
 
             cyElement.value.appendChild(element);
 
-            cyInstance.value = Object.freeze(
-                cytoscape({
-                  container: element,
-                  elements: [ // list of graph elements to start with
-                    { // node a
-                      data: { id: 'a' }
-                    },
-                    { // node b
-                      data: { id: 'b' }
-                    },
-                    { // edge ab
-                      data: { id: 'ab', source: 'a', target: 'b' }
-                    }
-                  ],
+            setCy(cytoscape({
+              container: element,
+              elements: data,
 
-                  style: [ // the stylesheet for the graph
-                    {
-                      selector: 'node',
-                      style: {
-                        'background-color': '#666',
-                        'label': 'data(id)'
-                      }
-                    },
-
-                    {
-                      selector: 'edge',
-                      style: {
-                        'width': 3,
-                        'line-color': '#ccc',
-                        'target-arrow-color': '#ccc',
-                        'target-arrow-shape': 'triangle',
-                        'curve-style': 'bezier'
-                      }
-                    }
-                  ],
-                  layout: {
-                    name: 'grid',
-                    rows: 1
+              style: [ // the stylesheet for the graph
+                {
+                  selector: 'node',
+                  style: {
+                    'background-color': '#666',
+                    'label': 'data(id)'
                   }
-                })
+                },
+
+                {
+                  selector: 'edge',
+                  style: {
+                    'width': 3,
+                    'line-color': '#ccc',
+                    'target-arrow-color': '#ccc',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier'
+                  }
+                }
+              ],
+              layout: {
+                name: 'grid',
+                rows: 1
+              }
+            }));
+
+            cyInstance.value = Object.freeze(
+                cy
             );
 
             test();
@@ -91,7 +85,6 @@ export default defineComponent({
   position: absolute;
   top: 10%;
   left: 5%;
-  background: gray;
   width: 95%;
   height: 90%;
 }

@@ -86,3 +86,8 @@ export function sendDataPostAxios(URL,params,success){
 
     }
 }
+
+export function turnForm(){
+    var statusSwitch = document.getElementById("statusSwitch");
+    statusSwitch.click();
+}

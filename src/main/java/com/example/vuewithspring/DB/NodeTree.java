@@ -1,19 +1,16 @@
 package com.example.vuewithspring.DB;
 
-import org.apache.jena.atlas.json.JSON;
-import org.apache.jena.atlas.json.JsonBuilder;
-import org.apache.jena.atlas.json.JsonObject;
-import org.json.JSONObject;
+import lombok.Getter;
 
 import java.util.*;
-import java.util.function.Consumer;
 
+@Getter
 public class NodeTree {
     ArrayList<Node> nodeArrayList = new ArrayList<>();
     Set<Node> nodeSet = new HashSet<>();
     Node root;
 
-    int level;
+    int depth=0;
 
     public void setTree(Node node){
         this.root=node;
@@ -62,58 +59,34 @@ public class NodeTree {
         }
         if(this.root!=null){
             Node rootNode = this.root;
+            this.root.setLevel(0);
+            this.depth=this.root.level;
             relateParentChild(rootNode,parentChildMap);
         }
     }
 
     public void relateParentChild(Node node,HashMap<String,HashMap<String,Node>> parentChildMap){
+        if(this.depth<node.level){
+            this.depth=node.level;
+        }
         for(String key: node.infoKeyMap.keySet()){
             if(parentChildMap.containsKey(key)){
                 HashMap<String,Node> map = parentChildMap.get(key);
                 node.children.putAll(map);
+                node.width=map.size();
                 for(String cKey:map.keySet()){
                     Node child = map.get(cKey);
                     child.parentNode=node;
+                    child.setLevel(node.level+1);
                     child.rootNode=this.root;
                     relateParentChild(child,parentChildMap);
                 }
+            }else if(node.children.size()==0){
+                node.isLeaf=true;
             }
         }
     }
 
-    public void viewTree(Node node,ArrayList<String> list){
-        for(String key: node.infoKeyMap.keySet()){
-            System.out.println(key);
-            for(String cKey:node.children.keySet()){
-                viewTree(node.children.get(cKey),list);
-            }
-        }
-    }
-
-//    { // node a
-//        data: { id: 'a' }
-//    },
-//    { // node b
-//        data: { id: 'b' }
-//    },
-//    { // edge ab
-//        data: { id: 'ab', source: 'a', target: 'b' }
-//    }
-    public String toJSON(){
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        for(String key : this.root.infoKeyMap.keySet()){
-            sb.append("{\"data:\":").append("{");
-            sb.append("\"id\":");
-            sb.append("\"").append(key).append("\",");
-            info data = this.root.infoKeyMap.get(key);
-            JSONObject dataObject = new JSONObject(data.infoMap);
-            sb.append(dataObject.toString());
-            sb.append("}}");
-        }
-
-        return sb.toString();
-    }
 
 
 }

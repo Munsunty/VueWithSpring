@@ -1,21 +1,18 @@
 <template>
   <div >
-    <img @click="fn" src="@/assets/2x/baseline_vertical_align_top_white_48dp.png" style="cursor: pointer;" />
+    <img @click="fn" src="@/assets/2x/sharp_add_white_48dp.png" style="cursor: pointer;" />
   </div>
 </template>
 <script>
+import {turnForm} from  '@/export/exfortFunction.js'
 
 export default {
-  name: 'topButton',
-  props:{
-
-  },
+  name: 'plusButton',
   methods:{
-    fn() {
-
+    fn(){
+      turnForm();
     }
-  },
-
+  }
 }
 </script>
 

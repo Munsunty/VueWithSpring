@@ -42,7 +42,9 @@ public class doI {
                     }
                 }
                 nodeTree.setTreeStructure();
-                result.append("[").append(nodeTree.getRoot().getJson()).append("]");
+                result.append("{\"depth\":").append(nodeTree.getDepth());
+                result.append(",\"list\":");
+                result.append("[").append(nodeTree.getRoot().getJson()).append("]}");
             }else{
                 throw new Exception("파일 없음");
             }

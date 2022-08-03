@@ -2,6 +2,8 @@
   <div id="topBar" class="center-left">
     <img alt="Vue logo" src="@/assets/logo.png">
     <div id="buttonArea-left" class="buttonArea left">
+      <starButton></starButton>
+      <plusButton></plusButton>
       <topButton></topButton>
       <bottomButton></bottomButton>
     </div>
@@ -14,15 +16,19 @@
 <script>
 import topButton from '@/components/button/topButton'
 import bottomButton from '@/components/button/bottomButton'
+import starButton from '@/components/button/starButton'
+import plusButton from "@/components/button/plusButton";
 
 export default {
   name: 'topBar',
-  props: {
-    msg: String
+  props:{
+    checked:Boolean
   },
   components: {
     topButton,
-    bottomButton
+    bottomButton,
+    starButton,
+    plusButton
   }
 }
 </script>
