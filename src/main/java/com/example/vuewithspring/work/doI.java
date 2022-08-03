@@ -24,8 +24,6 @@ public class doI {
 
             String fileLocation = "D:/TestProject/VueWithSpring/src/main/resources/assets/XML/ben.xml";
             File file = new File(fileLocation);
-
-
 //			불러온 XML 파일을 DOM으로 읽기 위한 사전작업
             if(file.isFile()){
                 InputStream inputStream = new FileInputStream(file);
@@ -44,18 +42,13 @@ public class doI {
                     }
                 }
                 nodeTree.setTreeStructure();
-                nodeTree.viewTree(nodeTree.getRoot());
-
-
+                result.append("[").append(nodeTree.getRoot().getJson()).append("]");
             }else{
                 throw new Exception("파일 없음");
             }
 
-
         }catch (Exception e){
-
             e.printStackTrace();
-
         }
 
 

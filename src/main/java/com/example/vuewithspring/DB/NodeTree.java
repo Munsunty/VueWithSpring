@@ -1,6 +1,12 @@
 package com.example.vuewithspring.DB;
 
+import org.apache.jena.atlas.json.JSON;
+import org.apache.jena.atlas.json.JsonBuilder;
+import org.apache.jena.atlas.json.JsonObject;
+import org.json.JSONObject;
+
 import java.util.*;
+import java.util.function.Consumer;
 
 public class NodeTree {
     ArrayList<Node> nodeArrayList = new ArrayList<>();
@@ -75,12 +81,39 @@ public class NodeTree {
         }
     }
 
-    public void viewTree(Node node){
+    public void viewTree(Node node,ArrayList<String> list){
         for(String key: node.infoKeyMap.keySet()){
             System.out.println(key);
             for(String cKey:node.children.keySet()){
-                viewTree(node.children.get(cKey));
+                viewTree(node.children.get(cKey),list);
             }
         }
     }
+
+//    { // node a
+//        data: { id: 'a' }
+//    },
+//    { // node b
+//        data: { id: 'b' }
+//    },
+//    { // edge ab
+//        data: { id: 'ab', source: 'a', target: 'b' }
+//    }
+    public String toJSON(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for(String key : this.root.infoKeyMap.keySet()){
+            sb.append("{\"data:\":").append("{");
+            sb.append("\"id\":");
+            sb.append("\"").append(key).append("\",");
+            info data = this.root.infoKeyMap.get(key);
+            JSONObject dataObject = new JSONObject(data.infoMap);
+            sb.append(dataObject.toString());
+            sb.append("}}");
+        }
+
+        return sb.toString();
+    }
+
+
 }
