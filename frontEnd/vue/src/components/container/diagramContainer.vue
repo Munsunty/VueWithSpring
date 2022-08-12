@@ -5,8 +5,7 @@
 </template>
 <script>
 import { defineComponent, nextTick, onMounted, ref } from 'vue'
-import cytoscape from 'cytoscape';
-import {setCy,data,cy} from '@/export/exfortVar'
+import {setCy,cy} from '@/export/exfortVar';
 
 
 export default defineComponent({
@@ -31,39 +30,9 @@ export default defineComponent({
           .then(() => {
             const element = document.createElement('div');
             element.setAttribute('id', 'cy-mounting-point');
-
             cyElement.value.appendChild(element);
 
-            setCy(cytoscape({
-              container: element,
-              elements: data,
-
-              style: [ // the stylesheet for the graph
-                {
-                  selector: 'node',
-                  style: {
-                    'background-color': '#666',
-                    'label': 'data(id)'
-                  }
-                },
-
-                {
-                  selector: 'edge',
-                  style: {
-                    'width': 3,
-                    'line-color': '#ccc',
-                    'target-arrow-color': '#ccc',
-                    'target-arrow-shape': 'triangle',
-                    'curve-style': 'bezier'
-                  }
-                }
-              ],
-              layout: {
-                name: 'grid',
-                rows: 1
-              }
-            }));
-
+            setCy(element);
             cyInstance.value = Object.freeze(
                 cy
             );

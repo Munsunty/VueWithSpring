@@ -5,17 +5,20 @@ import com.example.vuewithspring.DB.Node;
 import com.example.vuewithspring.DB.NodeTree;
 import com.example.vuewithspring.DB.info;
 import org.apache.commons.io.IOUtils;
+import org.apache.jena.atlas.json.JSON;
 import org.apache.jena.atlas.json.JsonObject;
 import org.json.*;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.*;
 
 public class doI {
     JsonConvert jsonConvert = new JsonConvert();
+
+    static HashMap<String,Integer> keyMap = new HashMap<>();
 
     public String getJsonData() {
 
@@ -55,5 +58,25 @@ public class doI {
 
 
         return result.toString();
+    }
+
+    public void Save(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        String body = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
+        InputStream inputStream = req.getInputStream();
+        if (inputStream != null) {
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            char[] charBuffer = new char[128];
+            int bytesRead = -1;
+            while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+                stringBuilder.append(charBuffer, 0, bytesRead);
+            }
+        }
+        body = stringBuilder.toString();
+        JsonConvert jsonConvert =  new JsonConvert();
+
+        HashMap hashMap = jsonConvert.fromJsonToHashMap(JSON.parse(body));
+        hashMap.size();
     }
 }

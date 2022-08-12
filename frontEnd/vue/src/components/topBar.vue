@@ -6,6 +6,7 @@
       <plusButton></plusButton>
       <topButton></topButton>
       <bottomButton></bottomButton>
+      <saveButton></saveButton>
     </div>
     <div id="buttonArea-right" class="buttonArea right">
 
@@ -17,7 +18,8 @@
 import topButton from '@/components/button/topButton'
 import bottomButton from '@/components/button/bottomButton'
 import starButton from '@/components/button/starButton'
-import plusButton from "@/components/button/plusButton";
+import plusButton from "@/components/button/plusButton"
+import saveButton from "@/components/button/saveButton"
 
 export default {
   name: 'topBar',
@@ -28,7 +30,8 @@ export default {
     topButton,
     bottomButton,
     starButton,
-    plusButton
+    plusButton,
+    saveButton
   }
 }
 </script>
