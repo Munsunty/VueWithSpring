@@ -15,13 +15,17 @@ export default {
       let nodes=[];
       let edges=[];
       console.log(jsonData);
-      if(jsonData.nodes.length>0&&jsonData.edges.length>0){
+      if(jsonData.nodes.length>0){
         jsonData.nodes.forEach(node=>{
           nodes.push(node.data)
         });
-        jsonData.edges.forEach(edge=>{
-          edges.push(edge.data)
-        });
+        // eslint-disable-next-line no-prototype-builtins
+        if(jsonData.hasOwnProperty('edges')&&jsonData.edges.length>0){
+          jsonData.edges.forEach(edge=>{
+            edges.push(edge.data)
+          });
+        }
+
         let url="save"
         let params = {
           mode:'ben',
