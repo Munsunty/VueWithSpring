@@ -14,7 +14,8 @@ export default {
       const jsonData =cy.json().elements;
       let nodes=[];
       let edges=[];
-      if(jsonData.nodes.length()>0&&jsonData.edges.length>0){
+      console.log(jsonData);
+      if(jsonData.nodes.length>0&&jsonData.edges.length>0){
         jsonData.nodes.forEach(node=>{
           nodes.push(node.data)
         });

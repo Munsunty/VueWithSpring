@@ -1,16 +1,18 @@
 import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
+import compoundDragAndDrop from 'cytoscape-compound-drag-and-drop';
 
 export let data=[
     { group: 'nodes', data: { id: 'n0' }, position: { x: 100, y: 100 } },
     { group: 'nodes', data: { id: 'n1' }, position: { x: 200, y: 200 } },
     { group: 'edges', data: { id: 'e0', source: 'n0', target: 'n1' } }
-
 ];
 
 export let cy;
 
 export let eh;
+
+export let cdnd;
 
 export let formShow=false;
 
@@ -22,24 +24,31 @@ export function changeData(item){
 
 export function setCy(element){
     cytoscape.use( edgehandles );
+    cytoscape.use( compoundDragAndDrop );
     cy=cytoscape({
         container: element,
-        elements: data,
+        elements: [],
         style: [ // the stylesheet for the graph
             {
                 selector: 'node',
                 style: {
-                    'background-color': '#666',
+                    'background-color': '#00ab62',
                     'label': 'data(id)'
                 }
             },
-
+            {
+                selector: 'node:parent',
+                style: {
+                    'label': '',
+                    'background-color': 'lightgray'
+                }
+            },
             {
                 selector: 'edge',
                 style: {
                     'width': 3,
-                    'line-color': '#ccc',
-                    'target-arrow-color': '#ccc',
+                    'line-color': '#00fff7',
+                    'target-arrow-color': '#00ffff',
                     'target-arrow-shape': 'triangle',
                     'curve-style': 'bezier'
                 }
@@ -96,7 +105,29 @@ export function setCy(element){
                 style: {
                     'opacity': 0
                 }
-            }
+            },
+
+            {
+                selector: '.cdnd-grabbed-node',
+                style: {
+                    'background-color': 'red'
+                }
+            },
+
+            {
+                selector: '.cdnd-drop-sibling',
+                style: {
+                    'background-color': 'red'
+                }
+            },
+
+            {
+                selector: '.cdnd-drop-target',
+                style: {
+                    'border-color': 'red',
+                    'border-style': 'dashed'
+                }
+            },
         ],
         layout: {
             name: 'grid',
@@ -158,8 +189,12 @@ export function setCy(element){
             editBt.click();
             if(editBt.checked){
                 eh.enableDrawMode();
+                cdnd.disable(); // disables the UI
+
             }else{
                 eh.disableDrawMode();
+                cdnd.enable(); // re-enables the UI
+
             }
 
         }
@@ -188,6 +223,9 @@ function addEdgehandles(){
         disableBrowserGestures: true // during an edge drawing gesture, disable browser gestures such as two-finger trackpad swipe and pinch-to-zoom
     };
     eh = cy.edgehandles(defaults);
+
+    cdnd = cy.compoundDragAndDrop();
+
 }
 export function changeCy(item){
     console.log(item);
@@ -197,7 +235,7 @@ export function addCy(item,){
     cy.add({
         group: 'nodes',
         data: {
-            id: item.name+'-'+item.type+'-'+item.version, info:item
+            id: item.key+":"+item.value, info:item
         },
         position: {
             x: 100, y: 100

@@ -12,25 +12,25 @@
     <hr />
     <FormKit
         type="text"
-        name="name"
-        label="Name"
+        name="key"
+        label="Key"
         placeholder="입력해주세요."
         validation="required"
     />
     <FormKit
         type="text"
-        name="type"
-        label="Type"
+        name="value"
+        label="Value"
         placeholder="입력해주세요."
         validation="required"
     />
-    <FormKit
-        type="number"
-        name="version"
-        label="Version"
-        placeholder="입력해주세요."
-        validation="required"
-    />
+<!--    <FormKit-->
+<!--        type="text"-->
+<!--        name="version"-->
+<!--        label="Version"-->
+<!--        placeholder="입력해주세요."-->
+<!--        validation="required"-->
+<!--    />-->
 
     <FormKit
         type="submit"

@@ -1,10 +1,9 @@
 package com.example.vuewithspring.DB;
 
 import lombok.Getter;
-import org.springframework.util.StringUtils;
+
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 @Getter
 public class info {
@@ -31,7 +30,7 @@ public class info {
     void isUpdate(){
         this.status=infoMap.containsKey("name")&&infoMap.containsKey("type")&&infoMap.containsKey("version");
         if(status&&exist){
-            key=infoMap.get("name").toString()+'-'+infoMap.get("type").toString()+'-'+(int)infoMap.get("version");
+            key="[-"+infoMap.get("name").toString()+'-'+infoMap.get("type").toString()+'-'+infoMap.get("version").toString()+"-]";
         }
     }
 
