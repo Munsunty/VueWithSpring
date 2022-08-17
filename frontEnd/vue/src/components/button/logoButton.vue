@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import {getDataByAxios, turnLeftBar} from "@/export/exfortFunction";
+import {turnLeftBar} from "@/export/exfortFunction";
 
 export default {
   name: 'logoButton',
@@ -15,14 +15,6 @@ export default {
       if(checked){
 
       }
-      let url="search"
-      let params = {
-        mode:'search',
-      };
-      let success = function (response){
-        console.log(response);
-      };
-      return getDataByAxios(url,params,success);
     }
   }
 }

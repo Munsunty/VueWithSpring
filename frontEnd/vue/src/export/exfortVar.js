@@ -1,6 +1,6 @@
 import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
-import compoundDragAndDrop from 'cytoscape-compound-drag-and-drop';
+// import compoundDragAndDrop from 'cytoscape-compound-drag-and-drop';
 
 export let data=[
     { group: 'nodes', data: { id: 'n0' }, position: { x: 100, y: 100 } },
@@ -25,9 +25,11 @@ export function changeData(item){
 
 
 
+
+
 export function setCy(element){
     cytoscape.use( edgehandles );
-    cytoscape.use( compoundDragAndDrop );
+    // cytoscape.use( compoundDragAndDrop );
     cy=cytoscape({
         container: element,
         elements: [],
@@ -36,13 +38,13 @@ export function setCy(element){
                 selector: 'node',
                 style: {
                     'background-color': '#00ab62',
-                    'label': 'data(id)'
+                    'label': 'data(kValue)'
                 }
             },
             {
                 selector: 'node:parent',
                 style: {
-                    'label': '',
+                    'label': 'data(kName)',
                     'background-color': 'lightgray'
                 }
             },
@@ -143,9 +145,9 @@ export function setCy(element){
         level: 1, // the zoom level
         position: { x: 0, y: 0 }
     });
+    addEdgehandles();
     cy.resize();
     cy.center();
-    addEdgehandles();
 
 
 
@@ -169,6 +171,7 @@ export function setCy(element){
             }
         }
     });
+
     cy.on('click', 'node', function(evt){
         var node = evt.target;
         if(editBt.checked){
@@ -192,11 +195,12 @@ export function setCy(element){
             editBt.click();
             if(editBt.checked){
                 eh.enableDrawMode();
-                cdnd.disable(); // disables the UI
+
 
             }else{
                 eh.disableDrawMode();
-                cdnd.enable(); // re-enables the UI
+                cdnd.disable(); // disables the UI
+                // cdnd.enable(); // re-enables the UI
 
             }
 
@@ -211,9 +215,10 @@ function addEdgehandles(){
             // whether an edge can be created between source and target
             return !sourceNode.same(targetNode); // e.g. disallow loops
         },
-        edgeParams: function( sourceNode, targetNode ){
-            console.log(sourceNode);
-            console.log(targetNode);
+
+        edgeParams: function(  ){
+
+
             // for edges between the specified source and target
             // return element object to be passed to cy.add() for edge
             return {};
@@ -227,23 +232,70 @@ function addEdgehandles(){
     };
     eh = cy.edgehandles(defaults);
 
-    cdnd = cy.compoundDragAndDrop();
+
+
 
 }
 export function changeCy(item){
     console.log(item);
 }
 
-export function addCy(item,){
+let basic = guid();
+
+let parentMap = new Map();
+export function addCy(item){
+    let parentId=basic+'-'+item.key;
+
+    let parent = cy.getElementById(parentId);
+    if(parent.length==0){
+        cy.add({
+            group: 'nodes',
+            data: {
+                kName:item.key,
+                id:parentId
+            }
+
+        });
+        parentMap.set(parentId,parentMap.size);
+    }
+    let position={
+        x:cy.width()*(1-parentMap.get(parentId)/parentMap.size)/2,y:0
+    };
+
     cy.add({
         group: 'nodes',
         data: {
-            id: item.key+":"+item.value, info:item
+            kValue:item.value,
+            parent:parentId,
+            id: item.key+':'+item.value,
+            info:item,
         },
-        position: {
-            x: 100, y: 100
-        }
+        position:position
     });
+    reArrange(parent);
+}
+
+function reArrange(parent){
+
+    if(parent.children().length>0){
+        let pcl= parent.children().length;
+        let firstNode = parent.children()[0];
+        for(let i=1; i < pcl;i++){
+            let node = parent.children()[i];
+            node.position('x',firstNode.position('x')+100*Math.cos(2*i*3.14/pcl));
+            node.position('y',firstNode.position('y')+100*Math.sin(2*i*3.14/pcl));
+
+        }
+    }
 
 }
+
+
+function guid() {
+    function s4() {
+        return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
 

@@ -1,4 +1,5 @@
 import axi from "axios";
+import {cy} from "@/export/exfortVar";
 
 const axios = axi.create({
     baseURL:"http://localhost:8080/",
@@ -101,5 +102,6 @@ export function turnLeftBar(){
     }else{
         document.getElementById("cy-wrapper").style.left='';
     }
+    cy.resize();
     return leftBarSwitch.checked;
 }
