@@ -16,7 +16,23 @@ export default {
         mode:'search',
       };
       let success = function (response){
-        let list = response.data.list;
+        let list = response.data;
+        list.forEach((item,idx)=>{
+          let info = item.info;
+          // eslint-disable-next-line no-prototype-builtins
+          if(info.hasOwnProperty('key')&&info.hasOwnProperty('value')){
+            item.data={
+              id:info.key+":"+info.value,
+              info:info
+            };
+            item.position={
+              x:idx%2==1?(1+idx)*100:0,
+              y:idx%2==0?0:(1+idx)*50
+            }
+          }
+        });
+        cy.add(list);
+        /*
         let nodeMap = new Map();
         let beforeMap = new Map();
         const depth = 80;
@@ -52,6 +68,8 @@ export default {
 
           cy.add(list);
         }
+
+         */
       };
       return getDataByAxios(url,params,success);
     }

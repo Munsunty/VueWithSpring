@@ -1,6 +1,6 @@
 <template>
   <div id="topBar" class="center-left">
-    <img alt="Vue logo" src="@/assets/logo.png">
+    <logo-button></logo-button>
     <div id="buttonArea-left" class="buttonArea left">
       <starButton></starButton>
       <plusButton></plusButton>
@@ -20,6 +20,7 @@ import bottomButton from '@/components/button/bottomButton'
 import starButton from '@/components/button/starButton'
 import plusButton from "@/components/button/plusButton"
 import saveButton from "@/components/button/saveButton"
+import LogoButton from "@/components/button/logoButton";
 
 export default {
   name: 'topBar',
@@ -27,6 +28,7 @@ export default {
     checked:Boolean
   },
   components: {
+    LogoButton,
     topButton,
     bottomButton,
     starButton,

@@ -4,8 +4,9 @@
   <input id="statusSwitch" type="checkbox"  v-model="checked" style="display: none"/>
   <span style="float: left; position: absolute;top: 10%; left:10%; font-size: 3em;" v-if="edit">---EDIT MODE---</span>
   <input id="editSwitch" type="checkbox" v-model="edit" style="display: none"/>
+  <input id="leftBarSwitch" type="checkbox" v-model="turnOnLBar" style="display: none"/>
   <topBar></topBar>
-  <leftBar></leftBar>
+  <leftBar v-if="turnOnLBar"></leftBar>
   <container></container>
 </template>
 
@@ -21,7 +22,8 @@ export default {
   data(){
     return{
       checked:false,
-      edit:false
+      edit:false,
+      turnOnLBar:false
     }
   },
   components: {

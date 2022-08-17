@@ -88,6 +88,12 @@ export function sendDataPostAxios(URL,params,success){
 }
 
 export function turnForm(){
-    var statusSwitch = document.getElementById("statusSwitch");
+    const statusSwitch = document.getElementById("statusSwitch");
     statusSwitch.click();
+}
+
+export function turnLeftBar(){
+    const leftBarSwitch = document.getElementById("leftBarSwitch");
+    leftBarSwitch.click();
+    return leftBarSwitch.checked;
 }

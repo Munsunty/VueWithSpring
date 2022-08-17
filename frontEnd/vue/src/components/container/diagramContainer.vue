@@ -54,7 +54,8 @@ export default defineComponent({
   position: absolute;
   top: 10%;
   left: 5%;
-  width: 95%;
+  min-width: 95%;
+  max-width: 100%;
   height: 90%;
 }
 #cy {

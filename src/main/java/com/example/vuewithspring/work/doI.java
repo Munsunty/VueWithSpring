@@ -1,9 +1,6 @@
 package com.example.vuewithspring.work;
 
 import com.example.vuewithspring.DB.JsonConvert;
-import com.example.vuewithspring.DB.Node;
-import com.example.vuewithspring.DB.NodeTree;
-import com.example.vuewithspring.DB.info;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.atlas.json.JSON;
 import org.apache.jena.atlas.json.JsonObject;
@@ -18,9 +15,76 @@ import java.util.*;
 public class doI {
     JsonConvert jsonConvert = new JsonConvert();
 
-    static HashMap<String,Integer> keyToMap = new HashMap<>();
-    static HashMap<Integer,String> mapToKey = new HashMap<>();
+    static Map<String, Object> keyToMap = new HashMap<String, Object>();
+    static HashMap<Object, String> mapToKey = new HashMap<Object, String>();
+    String fileName = "D:/TestProject/JSONDB/KeyValueGroup.json";
 
+    boolean notReadKeyToMap=true;
+    void doI(){
+        JSONObject ktm = new JSONObject(keyToMap);
+        String fileName2 = "D:/TestProject/JSONDB/keyToMap.json";
+        File file = new File(fileName2);
+        try {
+            if(file.isFile()){
+                InputStream inputStream = new FileInputStream(file);
+                String s = IOUtils.toString(inputStream);
+                inputStream.close();
+                JSONObject jsonObject = new JSONObject(s);
+                keyToMap = jsonObject.toMap();
+                for(String key: keyToMap.keySet()){
+                    mapToKey.put(keyToMap.get(key),key);
+                }
+                notReadKeyToMap=false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public String getJsonData() {
+        if(notReadKeyToMap){
+            doI();
+        }
+
+        StringBuffer result = new StringBuffer();
+        try {
+
+            File file = new File(fileName);
+//			불러온 XML 파일을 DOM으로 읽기 위한 사전작업
+
+            if(file.isFile()){
+                InputStream inputStream = new FileInputStream(file);
+                String s = IOUtils.toString(inputStream);
+                inputStream.close();
+                JSONObject jsonObject = new JSONObject(s);
+                Map map =jsonObject.toMap();
+                JSONArray jsonArray = new JSONArray();
+                for(String key: jsonObject.keySet()){
+                    Map<String,String> temp = (Map) map.get(key);
+                    for(String value : temp.keySet()){
+                        JSONObject tempObject = new JSONObject();
+                        String kKey = mapToKey.get(Integer.parseInt(key));
+                        Map infoMap = new LinkedHashMap();
+                        infoMap.put("key",kKey);
+                        infoMap.put("value",value);
+                        tempObject.put("info",infoMap);
+                        jsonArray.put(tempObject);
+                    }
+                }
+                result.append(jsonArray.toString());
+            }else{
+                throw new Exception("파일 없음");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return result.toString();
+    }
+    /*
     public String getJsonData() {
 
         StringBuffer result = new StringBuffer();
@@ -61,11 +125,14 @@ public class doI {
         return result.toString();
     }
 
+     */
+
     public void Save(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String body = null;
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
         InputStream inputStream = req.getInputStream();
+
 
         if (inputStream != null) {
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -87,7 +154,7 @@ public class doI {
         JSONObject kvg;
         HashMap kvgMap= new HashMap<>();
 
-        String fileName = "D:/TestProject/JSONDB/KeyValueGroup.json";
+
 
         File file = new File(fileName);
 //			불러온 XML 파일을 DOM으로 읽기 위한 사전작업
@@ -99,7 +166,7 @@ public class doI {
         }else{
             kvg = new JSONObject();
         }
-
+        HashMap parentMap = new HashMap();
         for(HashMap node : nodeList){
             if(node.containsKey("info")){
                 HashMap infoMap = (HashMap) node.get("info");
@@ -128,6 +195,17 @@ public class doI {
                     tempMap.put(infoMap.get("value"),dataType);
                     kvg.put(keyToMap.get(key).toString(),tempMap);
                 }
+            }
+            if(node.containsKey("parent")){
+                String parentKey = (String) node.get("parent");
+                if(parentMap.containsKey(parentKey)){
+
+                }else{
+                    HashMap pTempMap = new HashMap();
+
+//                    pTempMap.put(node)
+                }
+
             }
         }
         if(kvgMap.size()>0&&kvg.length()==0){

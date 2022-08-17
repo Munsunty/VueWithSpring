@@ -30,7 +30,7 @@ export default {
   width: 5%;
   top: 10%;
   height: 90%;
-  background: rgba(255, 147, 0, 0.58);
+  box-shadow: 0 6px 6px rgb(0 0 0 / 20%);
   display: flex;
   flex-direction: column;
 }
