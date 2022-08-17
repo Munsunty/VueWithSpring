@@ -1,4 +1,5 @@
 import axi from "axios";
+
 const axios = axi.create({
     baseURL:"http://localhost:8080/",
     headers:{
@@ -95,5 +96,10 @@ export function turnForm(){
 export function turnLeftBar(){
     const leftBarSwitch = document.getElementById("leftBarSwitch");
     leftBarSwitch.click();
+    if(leftBarSwitch.checked){
+        document.getElementById("cy-wrapper").style.left='5%';
+    }else{
+        document.getElementById("cy-wrapper").style.left='';
+    }
     return leftBarSwitch.checked;
 }

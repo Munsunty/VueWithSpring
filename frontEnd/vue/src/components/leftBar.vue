@@ -1,23 +1,25 @@
 <template>
   <div id="leftBar" >
+    <label for="buttonArea-up">DataSet</label>
     <div id="buttonArea-up" class="buttonArea">
-      menu
+      <span>1. Basic</span>
     </div>
     <div id="buttonArea-down" class="buttonArea">
-      menu2
+
     </div>
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: 'leftBar',
   props: {
     msg: String
   },
   components: {
+
+  },
+  setup() {
 
   }
 }
@@ -38,8 +40,8 @@ export default {
   height: 50%;
   width: 100%;
   display: flex;
-
   justify-content: space-around;
+  flex-direction: column;
 }
 
 </style>

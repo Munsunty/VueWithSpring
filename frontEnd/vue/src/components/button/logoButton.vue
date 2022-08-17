@@ -1,6 +1,6 @@
 <template>
   <div >
-    <img @click="fn" alt="Vue logo" src="@/assets/logo.png" style="cursor: pointer;">
+    <img @click="fn" alt="Vue logo" src="@/assets/2x/baseline_forest_white_48dp.png" style="cursor: pointer;">
   </div>
 </template>
 <script>

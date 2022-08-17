@@ -6,7 +6,7 @@
   <input id="editSwitch" type="checkbox" v-model="edit" style="display: none"/>
   <input id="leftBarSwitch" type="checkbox" v-model="turnOnLBar" style="display: none"/>
   <topBar></topBar>
-  <leftBar v-if="turnOnLBar"></leftBar>
+  <leftBar v-show="turnOnLBar"></leftBar>
   <container></container>
 </template>
 
@@ -31,6 +31,9 @@ export default {
     leftBar,
     container,
     formBox
+  },
+  setup(){
+
   }
 }
 

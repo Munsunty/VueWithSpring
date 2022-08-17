@@ -1,26 +1,25 @@
 <template>
   <div id="topBar" class="center-left">
-    <logo-button></logo-button>
+    <div id="buttonArea-logo" class="logoArea">
+      <logo-button></logo-button>
+    </div>
     <div id="buttonArea-left" class="buttonArea left">
       <starButton></starButton>
-      <plusButton></plusButton>
-      <topButton></topButton>
-      <bottomButton></bottomButton>
       <saveButton></saveButton>
     </div>
     <div id="buttonArea-right" class="buttonArea right">
-
+      <plusButton></plusButton>
     </div>
   </div>
 </template>
 
 <script>
-import topButton from '@/components/button/topButton'
-import bottomButton from '@/components/button/bottomButton'
+
 import starButton from '@/components/button/starButton'
+import LogoButton from "@/components/button/logoButton"
 import plusButton from "@/components/button/plusButton"
 import saveButton from "@/components/button/saveButton"
-import LogoButton from "@/components/button/logoButton";
+
 
 export default {
   name: 'topBar',
@@ -29,8 +28,6 @@ export default {
   },
   components: {
     LogoButton,
-    topButton,
-    bottomButton,
     starButton,
     plusButton,
     saveButton
@@ -48,10 +45,16 @@ export default {
 }
 .buttonArea{
   height: 100%;
-  width: 50%;
+  width: 45%;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
-
+.logoArea{
+  height: 100%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 </style>

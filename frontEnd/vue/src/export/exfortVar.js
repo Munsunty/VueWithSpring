@@ -22,6 +22,9 @@ export function changeData(item){
 }
 
 
+
+
+
 export function setCy(element){
     cytoscape.use( edgehandles );
     cytoscape.use( compoundDragAndDrop );
