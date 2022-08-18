@@ -15,7 +15,7 @@ public class mainController {
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
     public  String searchGet(){
-        return i.getJsonData();
+        return i.getBasicJsonData();
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
@@ -25,7 +25,7 @@ public class mainController {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return i.getJsonData();
+        return "";
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)

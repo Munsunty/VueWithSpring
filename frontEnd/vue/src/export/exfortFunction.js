@@ -99,8 +99,10 @@ export function turnLeftBar(){
     leftBarSwitch.click();
     if(leftBarSwitch.checked){
         document.getElementById("cy-wrapper").style.left='5%';
+        document.getElementById("cy-wrapper").style.width='95%';
     }else{
         document.getElementById("cy-wrapper").style.left='';
+        document.getElementById("cy-wrapper").style.width='100%';
     }
     cy.resize();
     return leftBarSwitch.checked;

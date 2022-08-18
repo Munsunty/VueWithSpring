@@ -53,8 +53,7 @@ export default defineComponent({
 #cy-wrapper{
   position: absolute;
   top: 10%;
-  min-width: 95%;
-  max-width: 100%;
+  width: 100%;
   height: 90%;
 }
 #cy {

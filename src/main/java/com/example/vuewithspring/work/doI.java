@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.jena.atlas.json.JSON;
 import org.apache.jena.atlas.json.JsonObject;
 import org.json.*;
+import org.springframework.util.StringUtils;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,7 @@ public class doI {
 
     }
 
-    public String getJsonData() {
+    public String getBasicJsonData() {
         if(notReadKeyToMap){
             doI();
         }
@@ -65,10 +66,8 @@ public class doI {
                     for(String value : temp.keySet()){
                         JSONObject tempObject = new JSONObject();
                         String kKey = mapToKey.get(Integer.parseInt(key));
-                        Map infoMap = new LinkedHashMap();
-                        infoMap.put("key",kKey);
-                        infoMap.put("value",value);
-                        tempObject.put("info",infoMap);
+                        tempObject.put("key",kKey);
+                        tempObject.put("value",value);
                         jsonArray.put(tempObject);
                     }
                 }
@@ -157,11 +156,14 @@ public class doI {
 
 
         File file = new File(fileName);
-//			불러온 XML 파일을 DOM으로 읽기 위한 사전작업
         if(file.isFile()){
             InputStream inputStream2 = new FileInputStream(file);
             String s = IOUtils.toString(inputStream2);
-            kvg = new JSONObject(s);
+            if(StringUtils.isEmpty(s)){
+                kvg = new JSONObject();
+            }else{
+                kvg = new JSONObject(s);
+            }
             inputStream2.close();
         }else{
             kvg = new JSONObject();
@@ -195,17 +197,6 @@ public class doI {
                     tempMap.put(infoMap.get("value"),dataType);
                     kvg.put(keyToMap.get(key).toString(),tempMap);
                 }
-            }
-            if(node.containsKey("parent")){
-                String parentKey = (String) node.get("parent");
-                if(parentMap.containsKey(parentKey)){
-
-                }else{
-                    HashMap pTempMap = new HashMap();
-
-//                    pTempMap.put(node)
-                }
-
             }
         }
         if(kvgMap.size()>0&&kvg.length()==0){

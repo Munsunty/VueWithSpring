@@ -78,6 +78,13 @@ export function setCy(element){
                     'background-color': 'red'
                 }
             },
+            {
+                selector: '.eh-ghost-node',
+                style: {
+                        label: ''
+                }
+            },
+
 
             {
                 selector: '.eh-source',
@@ -189,6 +196,15 @@ export function setCy(element){
             }
         }
     });
+    cy.on('ehcomplete',(event, sourceNode, targetNode, addedEdge) => {
+        console.log(event);
+        console.log(sourceNode);
+        console.log(targetNode);
+        console.log(addedEdge);
+
+
+        // ...
+    });
 
     window.addEventListener('keydown',()=>{
         if(event.key=='Insert'){
@@ -199,7 +215,7 @@ export function setCy(element){
 
             }else{
                 eh.disableDrawMode();
-                cdnd.disable(); // disables the UI
+                // cdnd.disable(); // disables the UI
                 // cdnd.enable(); // re-enables the UI
 
             }
@@ -244,8 +260,7 @@ let basic = guid();
 
 let parentMap = new Map();
 export function addCy(item){
-    let parentId=basic+'-'+item.key;
-
+    let parentId=basic+':'+item.key;
     let parent = cy.getElementById(parentId);
     if(parent.length==0){
         cy.add({
@@ -259,7 +274,7 @@ export function addCy(item){
         parentMap.set(parentId,parentMap.size);
     }
     let position={
-        x:cy.width()*(1-parentMap.get(parentId)/parentMap.size)/2,y:0
+        x:cy.width()*Math.cos(parentMap.get(parentId)/5*3.14)*3,y:cy.width()*Math.sin(parentMap.get(parentId)/5*3.14)*3
     };
 
     cy.add({
@@ -280,10 +295,12 @@ function reArrange(parent){
     if(parent.children().length>0){
         let pcl= parent.children().length;
         let firstNode = parent.children()[0];
+        let r=100;
+
         for(let i=1; i < pcl;i++){
             let node = parent.children()[i];
-            node.position('x',firstNode.position('x')+100*Math.cos(2*i*3.14/pcl));
-            node.position('y',firstNode.position('y')+100*Math.sin(2*i*3.14/pcl));
+            node.position('x',firstNode.position('x')+r*(i/10+1)*Math.cos(2*i*3.14/(i/10+1)));
+            node.position('y',firstNode.position('y')+r*(i/10+1)*Math.sin(2*i*3.14/(i/10+1)));
 
         }
     }

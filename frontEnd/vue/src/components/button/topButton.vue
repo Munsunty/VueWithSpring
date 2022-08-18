@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-
+import {cy} from "@/export/exfortVar";
 export default {
   name: 'topButton',
   props:{
@@ -12,7 +12,8 @@ export default {
   },
   methods:{
     fn() {
-
+      let r = { group: 'edges', data: { id: 'e0', source: '내용 요소:소인수분해', target: '핵심개념:수의 체계' } };
+      cy.add(r);
     }
   },
 

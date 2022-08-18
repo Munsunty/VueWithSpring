@@ -8,6 +8,7 @@
       <saveButton></saveButton>
     </div>
     <div id="buttonArea-right" class="buttonArea right">
+      <topButton></topButton>
       <plusButton></plusButton>
     </div>
   </div>
@@ -15,10 +16,11 @@
 
 <script>
 
-import starButton from '@/components/button/starButton'
-import LogoButton from "@/components/button/logoButton"
-import plusButton from "@/components/button/plusButton"
-import saveButton from "@/components/button/saveButton"
+import starButton from '@/components/button/starButton';
+import LogoButton from "@/components/button/logoButton";
+import plusButton from "@/components/button/plusButton";
+import saveButton from "@/components/button/saveButton";
+import topButton from "@/components/button/topButton";
 
 
 export default {
@@ -30,7 +32,8 @@ export default {
     LogoButton,
     starButton,
     plusButton,
-    saveButton
+    saveButton,
+    topButton
   }
 }
 </script>
