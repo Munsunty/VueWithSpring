@@ -1,4 +1,6 @@
+// @ts-ignore
 import cytoscape from 'cytoscape';
+// @ts-ignore
 import edgehandles from 'cytoscape-edgehandles';
 // import compoundDragAndDrop from 'cytoscape-compound-drag-and-drop';
 
@@ -8,16 +10,16 @@ export let data=[
     { group: 'edges', data: { id: 'e0', source: 'n0', target: 'n1' } }
 ];
 
-export let cy;
+export let cy:any;
 
-export let eh;
+export let eh:any;
 
-export let cdnd;
+export let cdnd:any;
 
-export let formShow=false;
+export const formShow=false;
 
 
-export function changeData(item){
+export function changeData(item:any){
     data=item;
 }
 
@@ -27,7 +29,7 @@ export function changeData(item){
 
 
 
-export function setCy(element){
+export function setCy(element:any){
     cytoscape.use( edgehandles );
     // cytoscape.use( compoundDragAndDrop );
     cy=cytoscape({
@@ -159,10 +161,10 @@ export function setCy(element){
 
 
     let cnt = 0;
-    let targetSet = new Set();
-    let editBt = document.getElementById('editSwitch');
-    cy.on('click', 'edge', function(evt){
-        var edge = evt.target;
+    const targetSet = new Set();
+    const editBt:any = document.getElementById('editSwitch');
+    cy.on('click', 'edge', function(evt:any){
+        const edge = evt.target;
         if(editBt.checked){
             if(targetSet.has(edge.id)){
                 cnt++;
@@ -179,8 +181,8 @@ export function setCy(element){
         }
     });
 
-    cy.on('click', 'node', function(evt){
-        var node = evt.target;
+    cy.on('click', 'node', function(evt:any){
+        const node = evt.target;
         if(editBt.checked){
             if(targetSet.has(node.id)){
                 cnt++;
@@ -196,7 +198,7 @@ export function setCy(element){
             }
         }
     });
-    cy.on('ehcomplete',(event, sourceNode, targetNode, addedEdge) => {
+    cy.on('ehcomplete',(event:any, sourceNode:any, targetNode:any, addedEdge:any) => {
         console.log(event);
         console.log(sourceNode);
         console.log(targetNode);
@@ -207,7 +209,8 @@ export function setCy(element){
     });
 
     window.addEventListener('keydown',()=>{
-        if(event.key=='Insert'){
+        const ev:any = event;
+        if(ev.key=='Insert'){
             editBt.click();
             if(editBt.checked){
                 eh.enableDrawMode();
@@ -226,8 +229,8 @@ export function setCy(element){
 }
 
 function addEdgehandles(){
-    let defaults = {
-        canConnect: function( sourceNode, targetNode ){
+    const defaults = {
+        canConnect: function( sourceNode:any, targetNode:any ){
             // whether an edge can be created between source and target
             return !sourceNode.same(targetNode); // e.g. disallow loops
         },
@@ -252,16 +255,16 @@ function addEdgehandles(){
 
 
 }
-export function changeCy(item){
+export function changeCy(item:any){
     console.log(item);
 }
 
-let basic = guid();
+const basic = guid();
 
-let parentMap = new Map();
-export function addCy(item){
-    let parentId=basic+':'+item.key;
-    let parent = cy.getElementById(parentId);
+const parentMap = new Map();
+export function addCy(item:any){
+    const parentId=basic+':'+item.key;
+    const parent = cy.getElementById(parentId);
     if(parent.length==0){
         cy.add({
             group: 'nodes',
@@ -273,7 +276,7 @@ export function addCy(item){
         });
         parentMap.set(parentId,parentMap.size);
     }
-    let position={
+    const position={
         x:cy.width()*Math.cos(parentMap.get(parentId)/5*3.14)*3,y:cy.width()*Math.sin(parentMap.get(parentId)/5*3.14)*3
     };
 
@@ -290,15 +293,15 @@ export function addCy(item){
     reArrange(parent);
 }
 
-function reArrange(parent){
+function reArrange(parent:any){
 
     if(parent.children().length>0){
-        let pcl= parent.children().length;
-        let firstNode = parent.children()[0];
-        let r=100;
+        const pcl= parent.children().length;
+        const firstNode = parent.children()[0];
+        const r=100;
 
         for(let i=1; i < pcl;i++){
-            let node = parent.children()[i];
+            const node = parent.children()[i];
             node.position('x',firstNode.position('x')+r*(i/10+1)*Math.cos(2*i*3.14/(i/10+1)));
             node.position('y',firstNode.position('y')+r*(i/10+1)*Math.sin(2*i*3.14/(i/10+1)));
 

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import {turnForm} from  '@/export/exfortFunction.js'
+import {turnForm} from  '@/export/exfortFunction'
 
 export default {
   name: 'plusButton',

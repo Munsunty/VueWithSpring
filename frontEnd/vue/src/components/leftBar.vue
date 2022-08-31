@@ -5,19 +5,21 @@
       <span>1. Basic</span>
     </div>
     <div id="buttonArea-down" class="buttonArea">
-
+        <myComponent></myComponent>
     </div>
   </div>
 </template>
 
 <script>
+
+import MyComponent from "@/components/table/MyComponent";
 export default {
   name: 'leftBar',
   props: {
     msg: String
   },
   components: {
-
+    MyComponent
   },
   setup() {
 

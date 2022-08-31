@@ -1,6 +1,5 @@
 <template>
   <form-box v-if="checked&&!edit"></form-box>
-<!--  <form-box v-if="checked&&edit"></form-box>-->
   <input id="statusSwitch" type="checkbox"  v-model="checked" style="display: none"/>
   <span style="float: left; position: absolute;top: 10%; left:10%; font-size: 3em;" v-if="edit">---EDIT MODE---</span>
   <input id="editSwitch" type="checkbox" v-model="edit" style="display: none"/>

@@ -10,11 +10,11 @@ const axios = axi.create({
 const axiosEx = axi.create({
 });
 
-export function getDataByAxios(URL,params,success,n){
-    var cnt = 1;
+export function getDataByAxios(URL:string,params:any,success:any,n:number){
+    let cnt = 1;
     byAxios(URL,params,success);
 
-    function byAxios(URL,params,success){
+    function byAxios(URL:string,params:any,success:any){
         if(URL.startsWith("https://")){
             axiosEx.get(URL,
                 {
@@ -50,11 +50,11 @@ export function getDataByAxios(URL,params,success,n){
 }
 
 
-export function sendDataPostAxios(URL,params,success){
-    var cnt = 1;
+export function sendDataPostAxios(URL:string,params:any,success:any){
+    let cnt = 1;
     byAxios(URL,params,success);
 
-    function byAxios(URL,params,success){
+    function byAxios(URL:string,params:any,success:any){
         if(URL.startsWith("https://")){
             axiosEx.post(URL,
                 {
@@ -90,18 +90,22 @@ export function sendDataPostAxios(URL,params,success){
 }
 
 export function turnForm(){
-    const statusSwitch = document.getElementById("statusSwitch");
+    const statusSwitch:any = document.getElementById("statusSwitch");
     statusSwitch.click();
 }
 
 export function turnLeftBar(){
-    const leftBarSwitch = document.getElementById("leftBarSwitch");
+    const leftBarSwitch:any = document.getElementById("leftBarSwitch");
     leftBarSwitch.click();
     if(leftBarSwitch.checked){
+        // @ts-ignore
         document.getElementById("cy-wrapper").style.left='5%';
+        // @ts-ignore
         document.getElementById("cy-wrapper").style.width='95%';
     }else{
+        // @ts-ignore
         document.getElementById("cy-wrapper").style.left='';
+        // @ts-ignore
         document.getElementById("cy-wrapper").style.width='100%';
     }
     cy.resize();
