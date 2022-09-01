@@ -23,7 +23,7 @@ export function changeData(item:any){
     data=item;
 }
 
-
+const editBt:any = document.getElementById('editSwitch');
 
 
 
@@ -162,7 +162,7 @@ export function setCy(element:any){
 
     let cnt = 0;
     const targetSet = new Set();
-    const editBt:any = document.getElementById('editSwitch');
+
     cy.on('click', 'edge', function(evt:any){
         const edge = evt.target;
         if(editBt.checked){

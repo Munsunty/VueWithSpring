@@ -6,7 +6,9 @@
   <input id="leftBarSwitch" type="checkbox" v-model="turnOnLBar" style="display: none"/>
   <topBar></topBar>
   <leftBar v-show="turnOnLBar"></leftBar>
-  <container></container>
+  <input id="gridSwitch" type="checkbox" v-model="grid" style="display: none"/>
+  <myComponent v-if="grid" ></myComponent>
+  <container v-show="!grid"></container>
 </template>
 
 <script>
@@ -14,22 +16,41 @@ import topBar from './components/topBar.vue'
 import leftBar from './components/leftBar.vue'
 import container from './components/container/diagramContainer.vue'
 import formBox from './components/container/formContainer.vue'
-
+import MyComponent from "./components/table/MyComponent"
+import {addCy} from "@/export/exfortVar";
+import {getDataByAxios} from "@/export/exfortFunction";
 
 export default {
   name: 'App',
+  created(){
+    let url="search"
+    let params = {
+      mode:'search',
+    };
+    let success = function (response){
+      let list = response.data;
+      if(Array.isArray(list)){
+        list.forEach(item=>{
+          addCy(item);
+        })
+      }
+    };
+    return getDataByAxios(url,params,success);
+  },
   data(){
     return{
       checked:false,
       edit:false,
-      turnOnLBar:false
+      turnOnLBar:false,
+      grid:false
     }
   },
   components: {
     topBar,
     leftBar,
     container,
-    formBox
+    formBox,
+    MyComponent
   },
   setup(){
 

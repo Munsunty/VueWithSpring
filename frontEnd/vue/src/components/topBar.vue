@@ -4,6 +4,7 @@
       <logo-button></logo-button>
     </div>
     <div id="buttonArea-left" class="buttonArea left">
+      <ViewButton></ViewButton>
       <starButton></starButton>
       <saveButton></saveButton>
     </div>
@@ -21,6 +22,8 @@ import LogoButton from "@/components/button/logoButton";
 import plusButton from "@/components/button/plusButton";
 import saveButton from "@/components/button/saveButton";
 import topButton from "@/components/button/topButton";
+import ViewButton from "@/components/button/ViewButton";
+
 
 
 export default {
@@ -29,6 +32,7 @@ export default {
     checked:Boolean
   },
   components: {
+    ViewButton,
     LogoButton,
     starButton,
     plusButton,

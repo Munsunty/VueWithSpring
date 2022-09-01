@@ -1,6 +1,8 @@
 import axi from "axios";
 import {cy} from "@/export/exfortVar";
 
+
+
 const axios = axi.create({
     baseURL:"http://localhost:8080/",
     headers:{
@@ -110,4 +112,11 @@ export function turnLeftBar(){
     }
     cy.resize();
     return leftBarSwitch.checked;
+}
+
+export function turnGrid(){
+
+    const gridTable:any = document.getElementById("gridSwitch");
+    gridTable.click();
+
 }
